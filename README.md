@@ -18,8 +18,14 @@ Fondasi project backend modern menggunakan **Bun**, **ElysiaJS**, **Drizzle ORM*
 ├── src/
 │   ├── db/
 │   │   ├── index.ts      # Koneksi database & instance Drizzle
-│   │   └── schema.ts     # Definisi skema tabel MySQL
+│   │   └── schema.ts     # Definisi skema tabel MySQL (users)
+│   ├── routes/           # Layer routing ElysiaJS
+│   │   └── users-routes.ts
+│   ├── services/         # Layer business logic
+│   │   └── users-services.ts
 │   └── index.ts          # Entry point server ElysiaJS
+├── test/                 # Test suite
+│   └── users.test.ts
 ├── .env.example          # Template konfigurasi environment
 ├── drizzle.config.ts     # Konfigurasi Drizzle Kit
 ├── package.json
@@ -79,4 +85,15 @@ DATABASE_URL=mysql://root:password@localhost:3306/belajar_vibe_coding
 ## 📡 Endpoint API
 - `GET /`: Pesan sambutan dan status server.
 - `GET /health`: Health check dan uptime aplikasi.
-- `GET /users`: Contoh pembacaan data tabel `users` menggunakan Drizzle ORM.
+- `GET /users`: Pembacaan data tabel `users` menggunakan Drizzle ORM.
+- `POST /api/users`: Registrasi user baru (password di-hash dengan bcrypt).
+  - **Body:** `{ "name": "...", "email": "...", "password": "..." }`
+  - **Response 200:** `{ "data": "OK" }`
+  - **Response 400:** `{ "error": "Email sudah terdaftar" }`
+
+---
+
+## 🧪 Pengujian (Testing)
+```bash
+bun test
+```
